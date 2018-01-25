@@ -41,15 +41,23 @@ def fetch_word_roots(filename="roots.csv"):
     html = url2html(url)
     table = html2table(html, selector="table.root_meanings", head_selector="thead tr td")
     subtable = []
-    for row in table:
+    for i, row in enumerate(table):
         trimmed_row = row[1:]
+        if i == 0:
+            subtable.append(trimmed_row)
+            continue
+        trimmed_row[0] = re.sub(r'\s+', ' ', trimmed_row[0])
         trimmed_row[0] = trimmed_row[0].lower() \
+            .replace('ann/enn', 'ann, enn') \
             .replace('chrom/o chromat/o', 'chrom/o, chromat/o') \
+            .replace('esth/aesth', 'esth, aesth') \
             .replace('gen/o/e/ genesis', 'gen/o/e, genesis') \
             .replace('kine/t /mat', 'kine/t, mat') \
             .replace('oxi/oxy', 'oxi, oxy') \
             .replace('rrh/ea /oea/ag', 'rrh/ea/oea/ag') \
-            .replace('phon/o /e/y', 'phon/o/e/y')
+            .replace('sy/m /n/l/s', 'sy/m/n/l/s') \
+            .replace('phon/o /e/y', 'phon/o/e/y') \
+            .replace('viv/i vit', 'viv/i, vit')
         subtable.append(trimmed_row)
 
     save_as_csv(subtable, filename)
@@ -61,12 +69,15 @@ def fetch_word_suffixes(filename="suffixes.csv"):
     subtable = []
     for i, row in enumerate(table):
         trimmed_row = list(filter(None, row))
+        if i == 0:
+            subtable.append(trimmed_row)
+            continue
         if not trimmed_row[0].startswith('-') and i >= 1:
             trimmed_row.insert(0, subtable[-1][0])
         trimmed_row[0] = trimmed_row[0].lower() \
             .replace('/', ', -') # -gam/gamy => -gam, -gamy
-        # -acity (-ocity) => -acity, -ocity
         trimmed_row[0] = re.sub(r' \(-?([a-z]+)\)$', r', -\1', trimmed_row[0])
+        # -acity (-ocity) => -acity, -ocity
         subtable.append(trimmed_row)
 
     save_as_csv(subtable, filename)
