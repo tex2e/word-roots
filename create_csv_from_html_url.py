@@ -51,6 +51,7 @@ def fetch_word_roots(filename="roots.csv"):
         trimmed_row[0] = trimmed_row[0].lower() \
             .replace('ann/enn', 'ann, enn') \
             .replace('chrom/o chromat/o', 'chrom/o, chromat/o') \
+            .replace('e-', 'e') \
             .replace('esth/aesth', 'esth, aesth') \
             .replace('gen/o/e/ genesis', 'gen/o/e, genesis') \
             .replace('kine/t /mat', 'kine/t, mat') \
