@@ -9,6 +9,9 @@ from pprint import pprint
 
 parser = argparse.ArgumentParser()
 parser.add_argument('word')
+output_options = parser.add_subparsers(dest='output')
+output_options.add_parser('--dat')
+output_options.add_parser('--tree')
 args = parser.parse_args()
 
 def assign_root_word_regex(pandas_frame_roots):
@@ -87,6 +90,10 @@ def get_word_structure(word, roots_data_frame):
         word_fragments.append( ('styled', word[start:end], meaning, start, end) )
         prev_end = end
 
+    if prev_end < len(word):
+        word_end = len(word)
+        word_fragments.append( ('none', word[prev_end:word_end], '', prev_end, word_end) )
+
     return word_fragments
 
 def show_tree(word_fragments):
@@ -119,23 +126,22 @@ def show_tree(word_fragments):
 
 def show_dat(word_fragments):
     writer = csv.writer(sys.stdout, delimiter="\t")
-    writer.writerows([ ["{}->{}".format(x[3], x[4]), x[1], x[2]] for x in word_fragments if not x[0] == 'none'])
+    writer.writerows([ ["{}..{}".format(x[3], x[4]), x[1], x[2]] for x in word_fragments if not x[0] == 'none'])
 
 def main(args):
     word = args.word
-    print(word)
-
     roots = pd.read_csv('roots.csv')
     roots = assign_root_word_regex(roots)
-
-
     word_fragments = get_word_structure(word, roots)
-    show_tree(word_fragments)
 
-    print("---")
-
-    show_dat(word_fragments)
-
+    print()
+    if args.output == 'dat':
+        show_dat(word_fragments)
+    elif args.output == 'tree':
+        show_tree(word_fragments)
+    else:
+        show_tree(word_fragments)
+    print()
 
 if __name__ == '__main__':
     main(args)
