@@ -33,7 +33,7 @@ def html2table(html, selector, head_selector="tr th"):
 
 def save_as_csv(table, filename):
     with open(filename, "w") as f:
-        wr = csv.writer(f)
+        wr = csv.writer(f, dialect='unix')
         wr.writerows(table)
 
 def fetch_word_roots(filename="roots.csv"):
@@ -55,6 +55,7 @@ def fetch_word_roots(filename="roots.csv"):
             .replace('esth/aesth', 'esth, aesth') \
             .replace('gen/o/e/ genesis', 'gen/o/e, genesis') \
             .replace('kine/t /mat', 'kine/t, mat') \
+            .replace('magn/a/i', 'magn/i') \
             .replace('oxi/oxy', 'oxi, oxy') \
             .replace('rrh/ea /oea/ag', 'rrh/ea/oea/ag') \
             .replace('sy/m /n/l/s', 'sy/m/n/l/s') \
