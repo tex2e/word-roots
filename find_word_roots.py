@@ -86,6 +86,7 @@ def find_roots(word, root_regexes):
                         reversed(matched_regexes))))
             i += diff
 
+    # print(result)
     return result
 
 def find_suffix(word, suffix_regexes):

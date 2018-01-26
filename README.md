@@ -18,30 +18,11 @@ $ python3 find_word_roots.py unilateral
 │   │     ┌─── relating to
 uni later al
 
-```
-
-## TODO
-
-expected:
-
-```
 $ python3 find_word_roots.py magnanimous
 
 ┌────────────── great, large
 │    ┌───────── life, spirit
 │    │    ┌──── full of
 magn anim ous
-
-```
-
-actual:
-
-```
-$ python3 find_word_roots.py magnanimous
-
-┌─────────────── great, large
-│       ┌─────── not, without
-│       │  ┌──── full of
-magna n im ous
 
 ```
