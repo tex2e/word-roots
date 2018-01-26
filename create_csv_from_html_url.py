@@ -43,10 +43,11 @@ def fetch_word_roots(filename="roots.csv"):
     subtable = []
     for i, row in enumerate(table):
         trimmed_row = row[1:]
+        trimmed_row = list(map(lambda x: re.sub(r'\s+', ' ', x), trimmed_row))
         if i == 0:
             subtable.append(trimmed_row)
             continue
-        trimmed_row[0] = re.sub(r'\s+', ' ', trimmed_row[0])
+        # trimmed_row[0] = re.sub(r'\s+', ' ', trimmed_row[0])
         trimmed_row[0] = trimmed_row[0].lower() \
             .replace('ann/enn', 'ann, enn') \
             .replace('chrom/o chromat/o', 'chrom/o, chromat/o') \
@@ -69,6 +70,7 @@ def fetch_word_suffixes(filename="suffixes.csv"):
     subtable = []
     for i, row in enumerate(table):
         trimmed_row = list(filter(None, row))
+        trimmed_row = list(map(lambda x: re.sub(r'\s+', ' ', x), trimmed_row))
         if i == 0:
             subtable.append(trimmed_row)
             continue
