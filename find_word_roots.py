@@ -78,8 +78,8 @@ def find_roots(word, root_regexes):
             start = longest_match[0]
             end   = longest_match[1]
             diff  = abs(end - start)
-            # (root word has 2 chars at least) or (at beginning of the given word)
-            if diff >= 2 or i == 0:
+            # (root word has 3 chars at least) or (at beginning of the given word)
+            if diff >= 3 or i == 0:
                 result.extend(
                     list(itertools.takewhile(
                         lambda x: x[1] == longest_match[1],
