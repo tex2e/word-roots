@@ -63,6 +63,8 @@ def fetch_word_roots(filename="roots.csv"):
             .replace('viv/i vit', 'viv/i, vit')
         subtable.append(trimmed_row)
 
+    subtable.append( ('fort', 'strong', 'Latin', 'fortify - to strengthen') )
+
     save_as_csv(subtable, filename)
 
 def fetch_word_suffixes(filename="suffixes.csv"):
