@@ -199,8 +199,13 @@ def show_dat(word_fragments):
     writer = csv.writer(sys.stdout, delimiter="\t")
     writer.writerows([ ["{}..{}".format(x[3], x[4]), x[1], x[2]] for x in word_fragments if not x[0] == 'none'])
 
+def usage():
+    print("Usage: word-roots <word>")
+    sys.exit()
+
 def main(args):
     word = args.word
+    if word == '': usage()
     roots = pd.read_csv('roots.csv')
     roots = assign_root_word_regex(roots)
     suffixes = pd.read_csv('suffixes.csv')
