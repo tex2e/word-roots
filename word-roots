@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python3 find_word_roots.py "$*"
