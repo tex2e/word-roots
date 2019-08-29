@@ -116,8 +116,8 @@ def get_word_structure(word, roots_data_frame, suffixes_data_frame):
     root_starts   = [x[0] for x in result]
     root_ends     = [x[1] for x in result]
     root_indices  = [x[2] for x in result]
-    root_words    = roots_data_frame.iloc[root_indices, 0].as_matrix()
-    root_meanings = roots_data_frame.iloc[root_indices, 1].as_matrix()
+    root_words    = roots_data_frame.iloc[root_indices, 0].values
+    root_meanings = roots_data_frame.iloc[root_indices, 1].values
 
     word_fragments = []
     prev_end = 0
